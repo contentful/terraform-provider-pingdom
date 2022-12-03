@@ -7,11 +7,20 @@ jobs:
     name: Run linter
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+      -
+        name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version-file: 'go.mod'
+          cache: true
 
       - name: golangci-lint
-        uses: golangci/golangci-lint-action@v2
+        uses: golangci/golangci-lint-action@v3
         with:
-          version: v1.29
+          go-version-file: 'go.mod'
+          cache: true
+          version: v1.49.0
           only-new-issues: true
