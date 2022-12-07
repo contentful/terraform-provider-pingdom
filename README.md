@@ -36,6 +36,32 @@ provider "pingdom" {
 }
 ```
 
+Alternatively, you can use environment variables to avoid sensitive values in your code:
+
+```sh
+export PINGDOM_API_TOKEN=YOUR_API_TOKEN
+export SOLARWINDS_PASSWD=YOUR_SOLARWINDS_PASSWD
+```
+
+You don't need to declare those values in your code:
+
+```hcl
+terraform {
+  required_providers {
+    pingdom = {
+      source  = "drfaust92/pingdom"
+      version = "~> 1.2"
+    }
+  }
+}
+
+variable "solarwinds_user" {}
+
+provider "pingdom" {
+    solarwinds_user   = "${var.solarwinds_user}"
+}
+```
+
 **Basic Check**
 
 ```hcl
