@@ -61,6 +61,10 @@ The following arguments are supported:
 * `username` - (Optional) Username to auth with.
 * `verify_certificate` - (Optional) Treat target site as down if an invalid/unverifiable certificate is found. Default value is `true`.
 
+## Attributes Reference
+
+* `id` - The check ID.
+
 ## Import
 
 Checks can be imported using their id, e.g.
