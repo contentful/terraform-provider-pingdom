@@ -22,8 +22,7 @@ func dataSourcePingdomTeam() *schema.Resource {
 			},
 			"member_ids": {
 				Type:     schema.TypeSet,
-				Optional: true,
-				ForceNew: false,
+				Computed: true,
 				Elem:     &schema.Schema{Type: schema.TypeInt},
 			},
 		},
