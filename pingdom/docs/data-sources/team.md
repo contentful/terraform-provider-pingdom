@@ -26,4 +26,5 @@ The following arguments are supported:
 
 ## Attributes Reference
 
+* `id` - The team ID.
 * `member_ids` - A list of memebers ids.
