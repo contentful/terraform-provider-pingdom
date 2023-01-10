@@ -55,6 +55,11 @@ func resourcePingdomCheck() *schema.Resource {
 				Optional: true,
 				Default:  false,
 			},
+			"ipv6": {
+				Type:     schema.TypeBool,
+				Optional: true,
+				Default:  false,
+			},
 			"responsetime_threshold": {
 				Type:     schema.TypeInt,
 				Optional: true,
@@ -190,6 +195,7 @@ type commonCheckParams struct {
 	Hostname                 string
 	Resolution               int
 	Paused                   bool
+	IPv6                     bool
 	ResponseTimeThreshold    int
 	SendNotificationWhenDown int
 	NotifyAgainEvery         int
@@ -241,6 +247,10 @@ func checkForResource(d *schema.ResourceData) (pingdom.Check, error) {
 
 	if v, ok := d.GetOk("paused"); ok {
 		checkParams.Paused = v.(bool)
+	}
+
+	if v, ok := d.GetOk("ipv6"); ok {
+		checkParams.IPv6 = v.(bool)
 	}
 
 	if v, ok := d.GetOk("resolution"); ok {
@@ -373,6 +383,7 @@ func checkForResource(d *schema.ResourceData) (pingdom.Check, error) {
 			Hostname:                 checkParams.Hostname,
 			Resolution:               checkParams.Resolution,
 			Paused:                   checkParams.Paused,
+			IPV6:                     checkParams.IPv6,
 			ResponseTimeThreshold:    checkParams.ResponseTimeThreshold,
 			SendNotificationWhenDown: checkParams.SendNotificationWhenDown,
 			NotifyAgainEvery:         checkParams.NotifyAgainEvery,
@@ -417,6 +428,7 @@ func checkForResource(d *schema.ResourceData) (pingdom.Check, error) {
 			Hostname:                 checkParams.Hostname,
 			Resolution:               checkParams.Resolution,
 			Paused:                   checkParams.Paused,
+			IPV6:                     checkParams.IPv6,
 			SendNotificationWhenDown: checkParams.SendNotificationWhenDown,
 			NotifyAgainEvery:         checkParams.NotifyAgainEvery,
 			NotifyWhenBackup:         checkParams.NotifyWhenBackup,
@@ -438,6 +450,7 @@ func checkForResource(d *schema.ResourceData) (pingdom.Check, error) {
 			NameServer:               checkParams.NameServer,
 			Resolution:               checkParams.Resolution,
 			Paused:                   checkParams.Paused,
+			IPV6:                     checkParams.IPv6,
 			SendNotificationWhenDown: checkParams.SendNotificationWhenDown,
 			NotifyAgainEvery:         checkParams.NotifyAgainEvery,
 			NotifyWhenBackup:         checkParams.NotifyWhenBackup,
@@ -545,6 +558,12 @@ func resourcePingdomCheckRead(ctx context.Context, d *schema.ResourceData, meta 
 		}
 	}
 
+	if ck.Status == "ipv6" {
+		if err := d.Set("ipv6", true); err != nil {
+			return diag.FromErr(err)
+		}
+	}
+
 	integids := schema.NewSet(
 		func(integrationId interface{}) int { return integrationId.(int) },
 		[]interface{}{},
@@ -619,6 +638,7 @@ func resourcePingdomCheckRead(ctx context.Context, d *schema.ResourceData, meta 
 		if err := d.Set("verify_certificate", ck.Type.HTTP.VerifyCertificate); err != nil {
 			return diag.FromErr(err)
 		}
+
 		if err := d.Set("ssl_down_days_before", ck.Type.HTTP.SSLDownDaysBefore); err != nil {
 			return diag.FromErr(err)
 		}

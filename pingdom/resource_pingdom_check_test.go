@@ -46,6 +46,7 @@ func TestAccResourcePingdomCheck_http(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "probefilters.#", "0"),
 					resource.TestCheckResourceAttr(resourceName, "userids.#", "0"),
 					resource.TestCheckResourceAttr(resourceName, "teamids.#", "0"),
+					resource.TestCheckResourceAttr(resourceName, "ipv6", "true"),
 				),
 			},
 			{
@@ -80,6 +81,7 @@ func TestAccResourcePingdomCheck_http(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "custom_message", "test"),
 					resource.TestCheckResourceAttrPair(resourceName, "userids.0", contactResourceName, "id"),
 					resource.TestCheckResourceAttrPair(resourceName, "teamids.0", teamResourceName, "id"),
+					resource.TestCheckResourceAttr(resourceName, "ipv6", "true"),
 				),
 			},
 		},
@@ -356,6 +358,7 @@ resource "pingdom_check" "http" {
 	requestheaders = {
 		X-Test-Data = "test"
 	}
+	ipv6                     = false
 }
 `, name, name, name)
 }
