@@ -46,7 +46,7 @@ func TestAccResourcePingdomCheck_http(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "probefilters.#", "0"),
 					resource.TestCheckResourceAttr(resourceName, "userids.#", "0"),
 					resource.TestCheckResourceAttr(resourceName, "teamids.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "ipv6", "true"),
+					resource.TestCheckResourceAttr(resourceName, "ipv6", "false"),
 				),
 			},
 			{
