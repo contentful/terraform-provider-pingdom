@@ -557,13 +557,6 @@ func resourcePingdomCheckRead(ctx context.Context, d *schema.ResourceData, meta 
 			return diag.FromErr(err)
 		}
 	}
-
-	if ck.Status == "ipv6" {
-		if err := d.Set("ipv6", true); err != nil {
-			return diag.FromErr(err)
-		}
-	}
-
 	integids := schema.NewSet(
 		func(integrationId interface{}) int { return integrationId.(int) },
 		[]interface{}{},
@@ -638,7 +631,6 @@ func resourcePingdomCheckRead(ctx context.Context, d *schema.ResourceData, meta 
 		if err := d.Set("verify_certificate", ck.Type.HTTP.VerifyCertificate); err != nil {
 			return diag.FromErr(err)
 		}
-
 		if err := d.Set("ssl_down_days_before", ck.Type.HTTP.SSLDownDaysBefore); err != nil {
 			return diag.FromErr(err)
 		}
@@ -651,6 +643,10 @@ func resourcePingdomCheckRead(ctx context.Context, d *schema.ResourceData, meta 
 		if err := d.Set("requestheaders", ck.Type.HTTP.RequestHeaders); err != nil {
 			return diag.FromErr(err)
 		}
+		if err := d.Set("ipv6", ck.IPv6); err != nil {
+			return diag.FromErr(err)
+		}
+
 	} else if ck.Type.TCP != nil {
 		if err := d.Set("type", checkTypeTcp); err != nil {
 			return diag.FromErr(err)
@@ -664,6 +660,10 @@ func resourcePingdomCheckRead(ctx context.Context, d *schema.ResourceData, meta 
 		if err := d.Set("stringtoexpect", ck.Type.TCP.StringToExpect); err != nil {
 			return diag.FromErr(err)
 		}
+
+		if err := d.Set("ipv6", ck.IPv6); err != nil {
+			return diag.FromErr(err)
+		}
 	} else if ck.Type.DNS != nil {
 		if err := d.Set("type", checkTypeDns); err != nil {
 			return diag.FromErr(err)
@@ -672,6 +672,9 @@ func resourcePingdomCheckRead(ctx context.Context, d *schema.ResourceData, meta 
 			return diag.FromErr(err)
 		}
 		if err := d.Set("nameserver", ck.Type.DNS.NameServer); err != nil {
+			return diag.FromErr(err)
+		}
+		if err := d.Set("ipv6", ck.IPv6); err != nil {
 			return diag.FromErr(err)
 		}
 	} else {
