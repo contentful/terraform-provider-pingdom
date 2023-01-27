@@ -60,6 +60,7 @@ The following arguments are supported:
 * `userids` - (Optional) Users to alert.
 * `username` - (Optional) Username to auth with.
 * `verify_certificate` - (Optional) Treat target site as down if an invalid/unverifiable certificate is found. Default value is `true`.
+* `ipv6` - (Optional) Wheter to enable IPV6 on check. Default value is `false`.
 
 ## Attributes Reference
 
