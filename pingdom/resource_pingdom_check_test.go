@@ -239,7 +239,7 @@ func testAccCheckPingdomCheckDestroy(s *terraform.State) error {
 func testAccResourcePingdomCheckConfig_dns(name string) string {
 	return fmt.Sprintf(`
 resource "pingdom_check" "dns" {
-	name       = "%s"
+	name       = %[1]q
 	host       = "example.com"
 	nameserver = "a.iana-servers.net"
 	expectedip = "2606:2800:220:1:248:1893:25c8:1946"
@@ -251,7 +251,7 @@ resource "pingdom_check" "dns" {
 func testAccResourcePingdomCheckConfig_dns_update(name string) string {
 	return fmt.Sprintf(`
 resource "pingdom_check" "dns" {
-	name       = "%s"
+	name       = %[1]q
 	host       = "example.org"
 	nameserver = "b.iana-servers.net"
 	expectedip = "93.184.216.34"
@@ -263,7 +263,7 @@ resource "pingdom_check" "dns" {
 func testAccResourcePingdomCheckConfig_ping(name string) string {
 	return fmt.Sprintf(`
 resource "pingdom_check" "ping" {
-	name = "%s"
+	name = %[1]q
 	host = "www.example.com"
 	type = "ping"
 }
@@ -273,7 +273,7 @@ resource "pingdom_check" "ping" {
 func testAccResourcePingdomCheckConfig_ping_update(name string) string {
 	return fmt.Sprintf(`
 resource "pingdom_check" "ping" {
-	name = "%s"
+	name = %[1]q
 	host = "www.example.org"
 	type = "ping"
 }
@@ -283,7 +283,7 @@ resource "pingdom_check" "ping" {
 func testAccResourcePingdomCheckConfig_tcp(name string) string {
 	return fmt.Sprintf(`
 resource "pingdom_check" "tcp" {
-	name = "%s"
+	name = %[1]q
 	host = "www.example.com"
 	port = 80
 	type = "tcp"
@@ -294,7 +294,7 @@ resource "pingdom_check" "tcp" {
 func testAccResourcePingdomCheckConfig_tcp_update(name string) string {
 	return fmt.Sprintf(`
 resource "pingdom_check" "tcp" {
-	name = "%s"
+	name = %[1]q
 	host = "www.example.org"
 	port = 443
 	type = "tcp"
@@ -305,7 +305,7 @@ resource "pingdom_check" "tcp" {
 func testAccResourcePingdomCheckConfig_http(name string) string {
 	return fmt.Sprintf(`
 resource "pingdom_check" "http" {
-	name                 = "%s"
+	name                 = %[1]q
 	host                 = "www.example.com"
 	type                 = "http"
 	ssl_down_days_before = 10
@@ -316,7 +316,7 @@ resource "pingdom_check" "http" {
 func testAccResourcePingdomCheckConfig_http_update(name string) string {
 	return fmt.Sprintf(`
 resource "pingdom_contact" "test" {
-	name = "%s"
+	name = %[1]q
 	sms_notification {
 		number   = "66666666"
 		severity = "HIGH"
@@ -328,12 +328,12 @@ resource "pingdom_contact" "test" {
 }
 
 resource "pingdom_team" "test" {
-	name = "%s"
+	name = %[1]q
 	member_ids = [pingdom_contact.test.id]
 }
 
 resource "pingdom_check" "http" {
-	name                     = "%s"
+	name                     = %[1]q
 	host                     = "www.example.org"
 	type                     = "http"
 	resolution               = 15
@@ -358,7 +358,7 @@ resource "pingdom_check" "http" {
 	requestheaders = {
 		X-Test-Data = "test"
 	}
-	ipv6                     = false
+	ipv6                     = true
 }
-`, name, name, name)
+`, name)
 }
