@@ -30,6 +30,11 @@ func dataSourcePingdomIntegrations() *schema.Resource {
 
 func dataSourcePingdomIntegrationsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*Clients).PingdomExt
+
+	if client == nil {
+		return diag.FromErr(fmt.Errorf("Client not correctly configured to use this resource"))
+	}
+
 	integrations, err := client.Integrations.List()
 	log.Printf("[DEBUG] integrations : %v", integrations)
 	if err != nil {

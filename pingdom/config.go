@@ -51,14 +51,17 @@ func (c *Config) Client() (*Clients, error) {
 	// 	return nil, err
 	// }
 
-	pingdomClientExt, err := pingdomext.NewClientWithConfig(pingdomext.ClientConfig{
-		Username: c.SolarwindsUser,
-		Password: c.SolarwindsPassword,
-		OrgID:    c.SolarwindsOrgID,
-	})
+	var pingdomClientExt *pingdomext.Client
+	if c.SolarwindsUser != "" {
+		pingdomClientExt, err = pingdomext.NewClientWithConfig(pingdomext.ClientConfig{
+			Username: c.SolarwindsUser,
+			Password: c.SolarwindsPassword,
+			OrgID:    c.SolarwindsOrgID,
+		})
 
-	if err != nil {
-		return nil, err
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	return &Clients{
