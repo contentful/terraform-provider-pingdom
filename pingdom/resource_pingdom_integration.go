@@ -88,6 +88,10 @@ func integrationForResource(d *schema.ResourceData, client *pingdomext.Client) (
 func resourcePingdomIntegrationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*Clients).PingdomExt
 
+	if client == nil {
+		return diag.FromErr(fmt.Errorf("Client not correctly configured to use this resource"))
+	}
+
 	integration, err := integrationForResource(d, client)
 	if err != nil {
 		return diag.FromErr(err)
@@ -109,6 +113,10 @@ func resourcePingdomIntegrationCreate(ctx context.Context, d *schema.ResourceDat
 
 func resourcePingdomIntegrationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*Clients).PingdomExt
+
+	if client == nil {
+		return diag.FromErr(fmt.Errorf("Client not correctly configured to use this resource"))
+	}
 
 	id, err := strconv.Atoi(d.Id())
 	if err != nil {
@@ -134,6 +142,10 @@ func resourcePingdomIntegrationUpdate(ctx context.Context, d *schema.ResourceDat
 
 func resourcePingdomIntegrationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*Clients).PingdomExt
+
+	if client == nil {
+		return diag.FromErr(fmt.Errorf("Client not correctly configured to use this resource"))
+	}
 
 	integrations, err := client.Integrations.List()
 	if err != nil {
@@ -181,6 +193,11 @@ func resourcePingdomIntegrationRead(ctx context.Context, d *schema.ResourceData,
 
 func resourcePingdomIntegrationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*Clients).PingdomExt
+
+	if client == nil {
+		return diag.FromErr(fmt.Errorf("Client not correctly configured to use this resource"))
+	}
+
 	id, err := strconv.Atoi(d.Id())
 	if err != nil {
 		return diag.Errorf("Error retrieving id for resource: %s", err)
