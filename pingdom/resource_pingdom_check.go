@@ -429,6 +429,7 @@ func checkForResource(d *schema.ResourceData) (pingdom.Check, error) {
 			Resolution:               checkParams.Resolution,
 			Paused:                   checkParams.Paused,
 			IPV6:                     checkParams.IPv6,
+			ResponseTimeThreshold:    checkParams.ResponseTimeThreshold,
 			SendNotificationWhenDown: checkParams.SendNotificationWhenDown,
 			NotifyAgainEvery:         checkParams.NotifyAgainEvery,
 			NotifyWhenBackup:         checkParams.NotifyWhenBackup,
