@@ -661,7 +661,9 @@ func resourcePingdomCheckRead(ctx context.Context, d *schema.ResourceData, meta 
 		if err := d.Set("stringtoexpect", ck.Type.TCP.StringToExpect); err != nil {
 			return diag.FromErr(err)
 		}
-
+    if err := d.Set("responsetime_threshold", ck.ResponseTimeThreshold); err != nil {
+			return diag.FromErr(err)
+		}
 		if err := d.Set("ipv6", ck.IPv6); err != nil {
 			return diag.FromErr(err)
 		}
