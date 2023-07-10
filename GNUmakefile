@@ -35,6 +35,6 @@ mod:
 	@go mod vendor
 
 testacc:
-	TF_ACC=1  $(GO_VER) test -timeout 600s -run='$(TESTS)' github.com/DrFaust92/terraform-provider-pingdom/pingdom
+	TF_ACC=1  $(GO_VER) test -timeout 600s -run='$(TESTS)' github.com/mbarper/terraform-provider-pingdom/pingdom
 
 .PHONY: build install lint test clean build-linux mod testacc

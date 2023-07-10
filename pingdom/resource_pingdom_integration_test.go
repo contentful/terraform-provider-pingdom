@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/DrFaust92/go-pingdom/pingdomext"
+	"github.com/mbarper/go-pingdom/pingdomext"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 )

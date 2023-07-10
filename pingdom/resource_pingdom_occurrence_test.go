@@ -3,7 +3,7 @@ package pingdom
 import (
 	"bytes"
 	"fmt"
-	"github.com/DrFaust92/go-pingdom/solarwinds"
+	"github.com/mbarper/go-pingdom/solarwinds"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 	"strconv"
