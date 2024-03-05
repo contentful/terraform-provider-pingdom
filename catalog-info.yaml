@@ -1,0 +1,17 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: terraform-provider-pingdom
+  description: |
+    TF Pingdom provider
+  annotations:
+    github.com/project-slug: terraform-provider-pingdom
+    contentful.com/ownership-level: "1"
+    contentful.com/service-tier: "4"
+  tags:
+    - sast-disabled
+    - tier-4
+spec:
+  type: library
+  lifecycle: experimental
+  owner: group:team-mechagodzilla
