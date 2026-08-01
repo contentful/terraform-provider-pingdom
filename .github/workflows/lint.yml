@@ -26,5 +26,5 @@ jobs:
         with:
           go-version-file: 'go.mod'
           cache: true
-          version: v1.49.0
+          version: v1.64.8
           only-new-issues: true
